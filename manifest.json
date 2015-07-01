@@ -20,7 +20,7 @@
         ]
     },
 
-    "content_security_policy": "script-src 'self' https://code.jquery.com https://api.stackexchange.com; object-src 'self'",
+    "content_security_policy": "script-src 'self' https://api.stackexchange.com; object-src 'self'",
 
     "permissions"      : [
         "identity",
