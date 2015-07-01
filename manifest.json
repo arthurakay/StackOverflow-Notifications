@@ -14,7 +14,10 @@
     },
 
     "background"       : {
-        "page" : "background/background.html"
+        "scripts" : [
+            "lib/jquery-1.11.3.min.js", 
+            "background/background.js"
+        ]
     },
 
     "content_security_policy": "script-src 'self' https://code.jquery.com https://api.stackexchange.com; object-src 'self'",
