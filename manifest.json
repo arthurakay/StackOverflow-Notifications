@@ -1,7 +1,7 @@
 {
     "manifest_version" : 2,
     "name"             : "StackOverflow Notifications",
-    "version"          : "0.1",
+    "version"          : "1.0",
 
     "description"      : "See when you receive notifications from StackOverflow",
 
