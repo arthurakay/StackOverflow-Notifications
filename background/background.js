@@ -51,7 +51,7 @@ function getUserInfo() {
 
         success : function(json) {
             STACK_API.user_id = json.items[0 ].user_id;
-            STACK_API.getMyNotifications += `${STACK_API.user_id}/notifications?site=stackoverflow`;
+            STACK_API.getMyNotifications += `${STACK_API.user_id}/notifications/unread?site=stackoverflow`;
 
             getNotifications();
 
@@ -81,26 +81,12 @@ function getNotifications() {
         dataType      : 'jsonp',
 
         success : function(json) {
-            setBadgeCount(getUnreadCount(json.items));
+            setBadgeCount("" + json.items.length);
         },
         error: function(e) {
             console.error(e.message);
         }
     });
-}
-
-function getUnreadCount(data) {
-    var count = 0;
-
-    for (var i=0; i<data.length; i++) {
-        if (!data[i].is_unread) {
-            break;
-        }
-
-        count++;
-    }
-
-    return "" + count; //expects a string
 }
 
 function setBadgeCount(count) {
