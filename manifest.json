@@ -1,9 +1,9 @@
 {
     "manifest_version" : 2,
-    "name"             : "StackOverflow Notifications",
-    "version"          : "1.0.1",
+    "name"             : "StackOverflow Inbox Notifications",
+    "version"          : "1.0.2",
 
-    "description"      : "See when you receive notifications from StackOverflow",
+    "description"      : "See when you receive inbox notifications from StackOverflow",
 
     "icons"            : {
         "128" : "resources/images/extension.jpg"

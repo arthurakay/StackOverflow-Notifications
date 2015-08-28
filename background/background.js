@@ -51,7 +51,7 @@ function getUserInfo() {
 
         success : function(json) {
             STACK_API.user_id = json.items[0 ].user_id;
-            STACK_API.getMyNotifications += `${STACK_API.user_id}/notifications/unread?site=stackoverflow`;
+            STACK_API.getMyNotifications += `${STACK_API.user_id}/inbox/unread?site=stackoverflow`;
 
             getNotifications();
 
