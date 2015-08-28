@@ -15,6 +15,8 @@ STACK_API = {
     getMyNotifications : 'https://api.stackexchange.com/2.2/users/'
 };
 
+var inboxMessages = [];
+
 function init() {
     //ES6 template string!
     var requestUrl = `${STACK_APP.request_uri}?client_id=${STACK_APP.id}&scope=${STACK_APP.scope}&redirect_uri=${STACK_APP.redirect_uri}`;
@@ -32,12 +34,6 @@ function init() {
 
 
 function getUserInfo() {
-    chrome.browserAction.onClicked.addListener(function (tab) {
-        chrome.tabs.create({
-            'url' : 'http://stackoverflow.com/'
-        });
-    });
-
     $.ajax({
         type  : 'GET',
         url   : `${STACK_API.getMyInfo}&key=${STACK_APP.key}&access_token=${STACK_API.token}`,
@@ -82,6 +78,7 @@ function getNotifications() {
 
         success : function(json) {
             setBadgeCount("" + json.items.length);
+            inboxMessages = json.items;
         },
         error: function(e) {
             console.error(e.message);
@@ -99,6 +96,9 @@ function setBadgeCount(count) {
     });
 }
 
+chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
+    sendResponse(inboxMessages);
+});
 
 //ready, set, go!
 init();

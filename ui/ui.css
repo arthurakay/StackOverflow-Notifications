@@ -1,0 +1,40 @@
+html, body {
+    height : 300px;
+    width  : 500px;
+}
+
+.inbox {
+    height     : 250px;
+    overflow-y : scroll;
+}
+
+.inboxMsg {
+    padding   : 10px;
+    font-size : 14px;
+
+    border-bottom: 1px solid #999;
+}
+
+.inboxMsg:last-child {
+    border-bottom: none;
+}
+
+.inboxMsgMeta {
+    color     : #666;
+    font-size : 10px;
+}
+
+.inboxMsgMeta-left {
+    display : inline-block;
+    float   : left;
+}
+
+.inboxMsgMeta-right {
+    display    : inline-block;
+    float      : right;
+    text-align : right;
+}
+
+.inboxMsgContent {
+    clear: both;
+}
