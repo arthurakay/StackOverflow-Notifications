@@ -22,3 +22,15 @@ To build, run the following command:
     grunt
 
 Build outputs to `build/`.
+
+## Tests
+
+...well there aren't (m)any. Yet.
+
+`lintroller` is used to verify that some code passes JSHint (namely `background.js`), but the JSX code
+will eventually need to be linted as well (via `eslint`, once that is supported).
+
+    cp hooks/pre-commit .git/hooks/
+    chmod 777 .git/hooks/pre-commit
+
+This will run `lintroller` before every commit, keeping our code clean!
