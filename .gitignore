@@ -1,1 +1,3 @@
 /ui/js/.module-cache
+/node_modules
+/build

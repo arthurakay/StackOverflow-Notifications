@@ -1,0 +1,20 @@
+{
+  "name": "StackOverflow_Inbox_Notifications",
+  "version": "0.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:arthurakay/StackOverflow-Notifications.git"
+  },
+  "author": {
+    "name": "Arthur Kay",
+    "email": "arthur.kay@sencha.com",
+    "url": "http://www.akawebdesign.com"
+  },
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {
+    "grunt-contrib-copy": "^0.8.1",
+    "grunt-exec": "^0.4.6"
+  }
+}
