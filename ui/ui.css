@@ -1,6 +1,17 @@
 html, body {
-    height : 300px;
-    width  : 500px;
+    height  : 300px;
+    width   : 500px;
+    padding : 0;
+    margin  : 0;
+}
+
+h1 {
+    margin  : 0;
+    padding : 10px 0 0 10px;
+}
+
+#content {
+    padding : 5px 20px;
 }
 
 .inbox {
@@ -9,14 +20,14 @@ html, body {
 }
 
 .inboxMsg {
-    padding   : 10px;
-    font-size : 14px;
+    padding       : 10px;
+    font-size     : 14px;
 
-    border-bottom: 1px solid #999;
+    border-bottom : 1px solid #999;
 }
 
 .inboxMsg:last-child {
-    border-bottom: none;
+    border-bottom : none;
 }
 
 .inboxMsgMeta {
@@ -36,5 +47,12 @@ html, body {
 }
 
 .inboxMsgContent {
-    clear: both;
+    clear : both;
+}
+
+.so_link {
+    text-align : right;
+    position   : absolute;
+    bottom     : 10px;
+    width      : 480px;
 }

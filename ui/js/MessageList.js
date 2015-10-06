@@ -8,18 +8,30 @@ var MessageList = React.createClass({displayName: "MessageList",
     },
 
     render : function () {
-        var messages = this.state.data.map(function (msg) {
-            return (
-                React.createElement(Message, {title: msg.title, 
-                         url: msg.link, 
-                         date: msg.creation_date, 
-                         type: msg.item_type})
-            );
-        });
+        var messages = (
+            React.createElement("p", null, 
+                React.createElement("em", null, "There are no unread messages in your inbox.")
+            )
+        );
+
+        if (this.state.data.length > 0) {
+            messages = this.state.data.map(function (msg) {
+                return (
+                    React.createElement(Message, {title: msg.title, 
+                             url: msg.link, 
+                             date: msg.creation_date, 
+                             type: msg.item_type})
+                );
+            });
+        }
 
         return (
             React.createElement("div", {className: "inbox"}, 
-                messages
+                messages, 
+                React.createElement("div", {className: "so_link"}, 
+                    React.createElement("a", {target: "_blank", 
+                       href: "http://stackoverflow.com/"}, "Open StackOverflow...")
+                )
             )
         );
     },
