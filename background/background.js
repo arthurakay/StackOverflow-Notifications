@@ -100,7 +100,10 @@ function setBadgeCount(count) {
 }
 
 chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
-    sendResponse(inboxMessages);
+    sendResponse({
+        messages : inboxMessages,
+        userId   : STACK_API.user_id
+    });
 });
 
 //ready, set, go!

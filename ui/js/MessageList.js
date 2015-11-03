@@ -3,7 +3,8 @@ var MessageList = React.createClass({
         this.requestData();
 
         return {
-            data: []
+            data: [],
+            userId: null
         };
     },
 
@@ -18,6 +19,13 @@ var MessageList = React.createClass({
             )
         );
 
+        var so_link = React.createElement(
+            "a",
+            { target: "_blank",
+                href: "http://stackoverflow.com/" },
+            "Open StackOverflow..."
+        );
+
         if (this.state.data.length > 0) {
             messages = this.state.data.map(function (msg) {
                 return React.createElement(Message, { title: msg.title,
@@ -27,6 +35,17 @@ var MessageList = React.createClass({
             });
         }
 
+        if (this.state.userId) {
+            so_link = React.createElement(
+                "a",
+                { href: "http://stackoverflow.com/users/" + this.state.userId,
+                    target: "_blank" },
+                React.createElement("img", { src: "http://stackoverflow.com/users/flair/" + this.state.userId + ".png?theme=clean",
+                    width: "208",
+                    height: "58" })
+            );
+        }
+
         return React.createElement(
             "div",
             { className: "inbox" },
@@ -34,12 +53,7 @@ var MessageList = React.createClass({
             React.createElement(
                 "div",
                 { className: "so_link" },
-                React.createElement(
-                    "a",
-                    { target: "_blank",
-                        href: "http://stackoverflow.com/" },
-                    "Open StackOverflow..."
-                )
+                so_link
             )
         );
     },
@@ -50,7 +64,8 @@ var MessageList = React.createClass({
 
     updateData: function (data) {
         this.setState({
-            data: data
+            data: data.messages,
+            userId: data.userId
         });
     }
 });

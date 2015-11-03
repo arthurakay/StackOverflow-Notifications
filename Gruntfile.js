@@ -88,12 +88,19 @@ module.exports = function (grunt) {
                 }
             },
 
-            node : {
+            ui : {
                 expand : true,
                 src    : [ '*.js' ],
                 dest   : 'build/ui/js/',
                 cwd    : 'build/ui/js/'
-            }
+            },
+
+            //background : {
+            //    expand : true,
+            //    src    : [ '*.js' ],
+            //    dest   : 'build/background/',
+            //    cwd    : 'build/background/'
+            //}
         }
     });
 
