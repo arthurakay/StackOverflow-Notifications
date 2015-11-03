@@ -2,3 +2,4 @@
 /node_modules
 /build
 /_DeveloperDashboard.zip
+.sass-cache/

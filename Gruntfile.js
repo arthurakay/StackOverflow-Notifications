@@ -51,10 +51,15 @@ module.exports = function (grunt) {
                         expand : true
                     },
                     {
+                        cwd    : 'ui/css',
+                        src    : '**/*',
+                        dest   : 'build/ui/css',
+                        expand : true
+                    },
+                    {
                         cwd    : 'ui',
                         src    : [
-                            'index.html',
-                            'ui.css'
+                            'index.html'
                         ],
                         dest   : 'build/ui',
                         expand : true
@@ -67,6 +72,27 @@ module.exports = function (grunt) {
                         expand : true
                     }
                 ]
+            }
+        },
+
+        uglify : {
+            options : {
+                mangle   : {
+                    topLevel : true,
+                    eval     : true
+                },
+                compress : {
+                    dead_code    : true,
+                    unused       : true,
+                    drop_console : true
+                }
+            },
+
+            node : {
+                expand : true,
+                src    : [ '*.js' ],
+                dest   : 'build/ui/js/',
+                cwd    : 'build/ui/js/'
             }
         }
     });
@@ -83,6 +109,7 @@ module.exports = function (grunt) {
         'exec:npm',
 
         'copy:build',
+        'uglify',
 
         'exec:zip'
     ]);
