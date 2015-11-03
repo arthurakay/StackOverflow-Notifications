@@ -5,13 +5,18 @@ https://chrome.google.com/webstore/detail/stackoverflow-notificatio/ndeljpkeimaf
 
 ## Dependencies
 
-The UI is built using React, so you'll need to instal the React tools:
+The UI is built using React, so you'll need to install Babel to compile the JSX into JavaScript:
 
-    npm install -g react-tools
+    npm install -g babel-cli
 
-This will allow you to write JSX code in the `ui/jsx/` folder, with output under `ui/js/` using:
+Then install `npm` dependencies and other stuff:
 
-    jsx --watch ui/jsx/ ui/js/
+    npm install
+
+Start the Babel/React compiler with the following code. It will compile the JSX in our `ui/jsx/` folder, 
+with output under `ui/js/`:
+
+    babel --presets react ui/jsx/ --watch --out-dir ui/js/
 
 The project also use `grunt` for the build process.
 

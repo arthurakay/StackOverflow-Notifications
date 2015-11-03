@@ -1,4 +1,1 @@
-React.render(
-    React.createElement(MessageList, null),
-    document.getElementById('content')
-);
+React.render(React.createElement(MessageList, null), document.getElementById('content'));
