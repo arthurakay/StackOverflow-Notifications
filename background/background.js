@@ -1,7 +1,7 @@
 STACK_APP = {
-    id           : 5125,
-    scope        : 'read_inbox,no_expiry',
-    key          : 'emLP89HI9*sP8VujNBW*Eg((',
+    id    : 5125,
+    scope : 'read_inbox,no_expiry',
+    key   : 'emLP89HI9*sP8VujNBW*Eg((',
 
     request_uri  : 'https://stackexchange.com/oauth/dialog',
     redirect_uri : chrome.identity.getRedirectURL("oauth2")
@@ -14,6 +14,27 @@ STACK_API = {
     getMyInfo          : 'https://api.stackexchange.com/2.2/me?order=desc&sort=reputation&site=stackoverflow',
     getMyNotifications : 'https://api.stackexchange.com/2.2/users/'
 };
+
+//use this to avoid polluting the global namespace
+JSONP_ID = 0;
+
+function jsonp(url, callback) {
+    var callbackName = `cb_${JSONP_ID}`,
+        script;
+
+    window[ callbackName ] = function (data) {
+        delete window[ callbackName ];
+        document.body.removeChild(script);
+        callback(data);
+    };
+
+    script = document.createElement('script');
+    script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
+    document.body.appendChild(script);
+
+    //increment for the next request
+    JSONP_ID++;
+}
 
 var inboxMessages = [];
 
@@ -34,56 +55,38 @@ function init() {
 
 
 function getUserInfo() {
-    $.ajax({
-        type  : 'GET',
-        url   : `${STACK_API.getMyInfo}&key=${STACK_APP.key}&access_token=${STACK_API.token}`,
+    console.log('getUserInfo()');
 
-        async       : false,
-        crossDomain : true,
+    var cb = function (json) {
+        STACK_API.user_id = json.items[ 0 ].user_id;
+        STACK_API.getMyNotifications += `${STACK_API.user_id}/inbox/unread?site=stackoverflow`;
 
-        jsonpCallback : 'jsonCallback',
-        contentType   : "application/json",
-        dataType      : 'jsonp',
+        getNotifications();
 
-        success : function(json) {
-            STACK_API.user_id = json.items[0 ].user_id;
-            STACK_API.getMyNotifications += `${STACK_API.user_id}/inbox/unread?site=stackoverflow`;
+        setInterval(
+            getNotifications,
+            (1000 * 60) //once per minute
+        );
+    };
 
-            getNotifications();
-
-            setInterval(
-                getNotifications,
-                (1000 * 60) //once per minute
-            );
-        },
-        error: function(e) {
-            console.error(e.message);
-        }
-    });
+    jsonp(
+        `${STACK_API.getMyInfo}&key=${STACK_APP.key}&access_token=${STACK_API.token}`,
+        cb
+    );
 }
 
 function getNotifications() {
-    console.log('API call');
+    console.log('getNotifications()');
 
-    $.ajax({
-        type  : 'GET',
-        url   : `${STACK_API.getMyNotifications}&key=${STACK_APP.key}&access_token=${STACK_API.token}`,
+    var cb = function (json) {
+        setBadgeCount("" + json.items.length);
+        inboxMessages = json.items;
+    };
 
-        async       : false,
-        crossDomain : true,
-
-        jsonpCallback : 'jsonCallback',
-        contentType   : "application/json",
-        dataType      : 'jsonp',
-
-        success : function(json) {
-            setBadgeCount("" + json.items.length);
-            inboxMessages = json.items;
-        },
-        error: function(e) {
-            console.error(e.message);
-        }
-    });
+    jsonp(
+        `${STACK_API.getMyNotifications}&key=${STACK_APP.key}&access_token=${STACK_API.token}`,
+        cb
+    );
 }
 
 function setBadgeCount(count) {
@@ -96,7 +99,7 @@ function setBadgeCount(count) {
     });
 }
 
-chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     sendResponse(inboxMessages);
 });
 

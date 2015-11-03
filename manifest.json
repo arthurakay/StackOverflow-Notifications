@@ -1,7 +1,7 @@
 {
     "manifest_version" : 2,
     "name"             : "StackOverflow Inbox Notifications",
-    "version"          : "1.1.1",
+    "version"          : "1.1.2",
 
     "description"      : "See when you receive inbox notifications from StackOverflow",
 
@@ -16,7 +16,6 @@
 
     "background"       : {
         "scripts" : [
-            "lib/jquery-1.11.3.min.js", 
             "background/background.js"
         ]
     },
