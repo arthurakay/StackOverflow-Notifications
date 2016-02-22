@@ -161,8 +161,4 @@ module.exports = function(grunt) {
 
         'exec:zip'
     ]);
-
-    grunt.registerTask('webpack', [
-        'webpack'
-    ]);
 };

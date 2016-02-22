@@ -9,18 +9,13 @@ The UI is built using React, so you'll need to install Babel to compile the JSX 
 
     npm install -g babel-cli
 
-Then install `npm` dependencies and other stuff:
-
-    npm install
-
-Start the Babel/React compiler with the following code. It will compile the JSX in our `ui/jsx/` folder, 
-with output under `ui/js/`:
-
-    babel --presets react ui/jsx/ --watch --out-dir ui/js/
-
 The project also use `grunt` for the build process.
 
     npm install -g grunt-cli
+
+Then install `npm` dependencies and other stuff:
+
+    npm install
 
 To build, run the following command:
 
