@@ -1,14 +1,28 @@
-var MessageList = React.createClass({
-    getInitialState : function () {
-        this.requestData();
+import React from 'react';
+import Message from './Message';
 
-        return {
-            data   : [],
-            userId : null
+class MessageList extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            data: [],
+            userId: null
         };
-    },
+    }
 
-    render : function () {
+    requestData() {
+        chrome.runtime.sendMessage('requestData', this.updateData.bind(this));
+    }
+
+    updateData(data) {
+        this.setState({
+            data: data.messages,
+            userId: data.userId
+        });
+    }
+
+    render() {
         var messages = (
             <p>
                 <em>There are no unread messages in your inbox.</em>
@@ -21,7 +35,7 @@ var MessageList = React.createClass({
         );
 
         if (this.state.data.length > 0) {
-            messages = this.state.data.map(function (msg) {
+            messages = this.state.data.map(function(msg) {
                 return (
                     <Message title={msg.title}
                              url={msg.link}
@@ -50,16 +64,7 @@ var MessageList = React.createClass({
                 </div>
             </div>
         );
-    },
-
-    requestData : function () {
-        chrome.runtime.sendMessage('requestData', this.updateData);
-    },
-
-    updateData : function (data) {
-        this.setState({
-            data   : data.messages,
-            userId : data.userId
-        });
     }
-});
+}
+
+module.exports = MessageList;
