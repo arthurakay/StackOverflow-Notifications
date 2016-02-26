@@ -9,6 +9,8 @@ class MessageList extends React.Component {
             data: [],
             userId: null
         };
+
+        this.requestData();
     }
 
     requestData() {

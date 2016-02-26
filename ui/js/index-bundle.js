@@ -98,6 +98,8 @@
 	            data: [],
 	            userId: null
 	        };
+
+	        _this.requestData();
 	        return _this;
 	    }
 
