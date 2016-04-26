@@ -148,9 +148,9 @@
 	            if (this.state.userId) {
 	                so_link = _react2.default.createElement(
 	                    'a',
-	                    { href: "http://stackoverflow.com/users/" + this.state.userId,
+	                    { href: 'http://stackoverflow.com/users/' + this.state.userId,
 	                        target: '_blank' },
-	                    _react2.default.createElement('img', { src: "http://stackoverflow.com/users/flair/" + this.state.userId + ".png?theme=clean",
+	                    _react2.default.createElement('img', { src: 'http://stackoverflow.com/users/flair/' + this.state.userId + '.png?theme=clean',
 	                        width: '208',
 	                        height: '58' })
 	                );
