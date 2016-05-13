@@ -97,6 +97,15 @@ function setBadgeCount(count) {
     chrome.browserAction.setBadgeText({
         text : count
     });
+
+    if (count > 0) {
+        chrome.notifications.create({
+            type: 'basic',
+            iconUrl: '../resources/images/stackoverflow_16.png',
+            title: 'StackOverflow',
+            message: 'You have a new message from StackOverflow!'
+        });
+    }
 }
 
 chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
