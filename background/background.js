@@ -36,7 +36,8 @@ function jsonp(url, callback) {
     JSONP_ID++;
 }
 
-var inboxMessages = [];
+var inboxMessages = [],
+    previousMessageCount = 0;
 
 function init() {
     //ES6 template string!
@@ -79,8 +80,8 @@ function getNotifications() {
     console.log('getNotifications()');
 
     var cb = function (json) {
-        setBadgeCount("" + json.items.length);
         inboxMessages = json.items;
+        setBadgeCount();
     };
 
     jsonp(
@@ -89,23 +90,29 @@ function getNotifications() {
     );
 }
 
-function setBadgeCount(count) {
-    if (count === '0') {
-        count = '';
-    }
+function setBadgeCount() {
+    let count = '';
 
-    chrome.browserAction.setBadgeText({
-        text : count
-    });
+    if (inboxMessages.length > 0 && inboxMessages.length !== previousMessageCount) {
+        // set reference to current number of messages
+        previousMessageCount = inboxMessages.length;
 
-    if (count > 0) {
+        // cast as String for setBadgeText()
+        count = '' + inboxMessages.length;
+
         chrome.notifications.create({
             type: 'basic',
             iconUrl: '../resources/images/stackoverflow_16.png',
             title: 'StackOverflow',
             message: 'You have a new message from StackOverflow!'
         });
+    } else {
+        previousMessageCount = 0;
     }
+
+    chrome.browserAction.setBadgeText({
+        text : count
+    });
 }
 
 chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
